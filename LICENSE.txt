@@ -1,0 +1,40 @@
+NOVIX DESKTOP — END USER LICENSE AGREEMENT
+
+Copyright (c) 2026 Jan Pivko. All rights reserved.
+
+This is a legal agreement between you (the user) and Jan Pivko ("the Author")
+for the NOVIX Desktop software, including its program, files, artwork, sounds
+and documentation ("the Software"). By installing or using the Software you
+agree to this agreement. If you do not agree, do not install or use it.
+
+1. LICENSE
+The Author grants you a personal, non-exclusive, non-transferable license to
+install and use one copy of the Software on computers you own or control, for
+your own use.
+
+2. WHAT YOU MAY NOT DO
+You may not, in whole or in part:
+  (a) copy, publish, share, sell, rent, lend or otherwise distribute the
+      Software to anyone else;
+  (b) change, adapt, translate or make derivative works from the Software;
+  (c) reverse engineer, decompile or disassemble the Software, or try to
+      discover its source code, except where the law expressly allows it;
+  (d) remove or hide any copyright, name or notice in the Software;
+  (e) pass the Software off as your own or under another name.
+
+3. OWNERSHIP
+The Software is licensed, not sold. The Author owns the Software and all
+copyright and other rights in it. You get only the rights stated above.
+
+4. NO WARRANTY
+The Software is provided "as is", without warranty of any kind. The Author is
+not liable for any damage arising from its use, to the extent the law allows.
+
+5. TERMINATION
+This license ends automatically if you break any of its terms. You must then
+stop using the Software and delete every copy.
+
+6. LAW
+This agreement is governed by the laws of the Czech Republic.
+
+Contact: Jan Pivko
