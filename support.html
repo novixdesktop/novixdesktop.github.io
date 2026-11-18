@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NOVIX Support</title>
+<meta name="description" content="Help for NOVIX Desktop: quick answers and support tickets." />
+<link rel="icon" href="img/logo.png" />
+<style>
+  @font-face { font-family: 'Inter'; src: url(fonts/inter.woff2) format('woff2'); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: 'Sora'; src: url(fonts/sora.woff2) format('woff2'); font-weight: 100 800; font-display: swap; }
+  :root {
+    --bg: #050506;
+    --panel: #111114;
+    --panel-2: #18181c;
+    --line: rgba(255, 255, 255, 0.09);
+    --text: #f5f5f7;
+    --text-2: rgba(245, 245, 247, 0.68);
+    --text-3: rgba(245, 245, 247, 0.42);
+    --red: #ff3b30;
+    --orange: #ff9f0a;
+    --radius: 22px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1100px, 100% - 32px); margin: 0 auto; }
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(18px) saturate(1.4); background: rgba(5, 5, 6, 0.6); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 24px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font: 700 19px Sora, Inter, sans-serif; letter-spacing: -0.3px; }
+  .brand img { width: 34px; height: 34px; border-radius: 50%; }
+  nav .links { display: flex; gap: 22px; margin-left: auto; font-size: 15px; color: var(--text-2); }
+  nav .links a:hover, nav .links a.on { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border: 0; border-radius: 999px; background: var(--text); color: #000; font: 650 15px Inter, sans-serif; cursor: pointer; transition: transform 0.2s, opacity 0.2s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+  .btn.small { padding: 9px 16px; font-size: 14px; }
+  .btn.ghost { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--line); }
+
+  header { position: relative; text-align: center; padding: 70px 0 34px; }
+  .glow { position: absolute; inset: -40% -20% auto; height: 520px; z-index: -1; filter: blur(90px); opacity: 0.45; pointer-events: none;
+    background: radial-gradient(40% 50% at 30% 40%, #ff5e3a, transparent 70%), radial-gradient(35% 45% at 70% 40%, #5e8bff, transparent 70%); }
+  h1 { font: 800 clamp(38px, 6vw, 64px)/1 Sora, Inter, sans-serif; letter-spacing: -0.04em; margin: 0 0 14px; }
+  h1 span { color: var(--red); }
+  .lead { color: var(--text-2); margin: 0 auto; max-width: 560px; font-size: 18px; }
+
+  .grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 18px; padding-bottom: 80px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; }
+  .card h2 { font: 700 20px Sora, Inter, sans-serif; margin: 0 0 4px; letter-spacing: -0.3px; }
+  .card .sub { color: var(--text-3); font-size: 14px; margin: 0 0 16px; }
+
+  /* help bot */
+  .chat { display: flex; flex-direction: column; height: 560px; }
+  .msgs { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 4px 2px 12px; }
+  .msg { max-width: 88%; padding: 10px 14px; border-radius: 16px; font-size: 15px; white-space: pre-line; animation: in 0.25s ease; }
+  .msg.bot { background: var(--panel-2); border: 1px solid var(--line); border-top-left-radius: 6px; align-self: flex-start; }
+  .msg.me { background: var(--orange); color: #1a1000; border-top-right-radius: 6px; align-self: flex-end; }
+  .msg .who { display: block; font-size: 12px; font-weight: 600; color: var(--text-3); margin-bottom: 2px; }
+  .msg .act { margin-top: 10px; }
+  @keyframes in { from { opacity: 0; transform: translateY(6px); } }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+  .chip { border: 1px solid var(--line); background: transparent; color: var(--text-2); font: 500 13px Inter, sans-serif; padding: 6px 11px; border-radius: 999px; cursor: pointer; }
+  .chip:hover { color: var(--text); border-color: rgba(255, 255, 255, 0.25); }
+  .ask { display: flex; gap: 8px; }
+  input, textarea, select { width: 100%; background: var(--panel-2); color: var(--text); border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; font: 15px Inter, sans-serif; outline: none; }
+  input:focus, textarea:focus, select:focus { border-color: var(--orange); }
+  textarea { resize: vertical; min-height: 120px; }
+  label { display: block; font-size: 13px; color: var(--text-2); margin: 12px 0 6px; }
+
+  /* tickets */
+  .tickets { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 16px; }
+  .tickets h3 { font-size: 15px; margin: 0 0 10px; }
+  .ticket { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; background: var(--panel-2); }
+  .ticket .top { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--text-3); }
+  .ticket .id { font-weight: 700; color: var(--orange); letter-spacing: 0.5px; }
+  .ticket p { margin: 6px 0 8px; font-size: 14px; color: var(--text-2); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .ticket .row { display: flex; gap: 8px; }
+  .note { font-size: 13px; color: var(--text-3); margin-top: 10px; }
+  .saved { font-size: 12px; color: var(--text-3); text-align: right; min-height: 16px; margin-top: 4px; }
+  .empty { color: var(--text-3); font-size: 14px; }
+
+  footer { border-top: 1px solid var(--line); padding: 26px 0 36px; color: var(--text-3); font-size: 14px; }
+  footer .wrap { display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
+
+  @media (max-width: 860px) {
+    nav .links { display: none; }
+    nav .btn { margin-left: auto; }
+    .grid { grid-template-columns: 1fr; }
+    /* Phone: the chat grows with its answers instead of squeezing them under the question chips. */
+    .chat { height: auto; }
+    .msgs { min-height: 280px; max-height: 460px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="./"><img src="img/logo.png" alt="" /> NOVIX</a>
+    <div class="links">
+      <a href="./#features">Features</a>
+      <a href="./#wallpapers">Wallpapers</a>
+      <a href="./#install">Install</a>
+      <a href="support.html" class="on">Support</a>
+    </div>
+    <a class="btn small" href="https://github.com/novixdesktop/novixdesktop.github.io/releases/latest/download/NOVIX-Desktop-Setup.exe">Download</a>
+  </div>
+</nav>
+
+<header>
+  <div class="glow"></div>
+  <div class="wrap">
+    <h1>How can we help<span>?</span></h1>
+    <p class="lead">Ask the NOVIX helper for a quick answer, or create a support ticket and we will reply by email.</p>
+  </div>
+</header>
+
+<main class="wrap grid">
+  <section class="card chat" aria-label="NOVIX helper">
+    <h2>NOVIX helper</h2>
+    <p class="sub">Answers common questions instantly. It knows NOVIX Desktop, not everything.</p>
+    <div class="msgs" id="msgs" aria-live="polite"></div>
+    <div class="chips" id="chips"></div>
+    <form class="ask" id="ask">
+      <input id="q" autocomplete="off" placeholder="Type your question, e.g. “Hey Tom does not work”" aria-label="Your question" />
+      <button class="btn" type="submit">Ask</button>
+    </form>
+  </section>
+
+  <section class="card" id="ticket" aria-label="Support ticket">
+    <h2>Create a support ticket</h2>
+    <p class="sub">Your ticket is saved in this browser while you write, so nothing is lost if you close the page.</p>
+    <form id="tform">
+      <label for="email">Your email</label>
+      <input id="email" type="email" required placeholder="you@example.com" />
+      <label for="topic">Topic</label>
+      <select id="topic">
+        <option>Installing or starting NOVIX</option>
+        <option>Tom (voice assistant)</option>
+        <option>Wallpapers and widgets</option>
+        <option>Bar, Dock and taskbar</option>
+        <option>License or payment</option>
+        <option>Something else</option>
+      </select>
+      <label for="message">What happened?</label>
+      <textarea id="message" required placeholder="Describe the problem: what you did, what you expected, and what happened instead. Your Windows version helps too."></textarea>
+      <div class="saved" id="saved"></div>
+      <button class="btn" type="submit" style="width: 100%; margin-top: 8px">Create ticket</button>
+      <p class="note">Creating the ticket opens your email app with everything filled in. Press Send there to reach us at <a href="mailto:novixdesktop@gmail.com">novixdesktop@gmail.com</a>.</p>
+    </form>
+    <div class="tickets">
+      <h3>Your tickets</h3>
+      <div id="list"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Jan Pivko. All rights reserved.</span>
+    <span><a href="mailto:novixdesktop@gmail.com">novixdesktop@gmail.com</a> · <a href="./">Back to NOVIX Desktop</a></span>
+  </div>
+</footer>
+
+<script>
+// ---------------------------------------------------------------- help: answers from a fixed list (runs in the browser, no AI service, no key)
+const SUPPORT = 'novixdesktop@gmail.com'
+const FAQ = [
+  { id: 'what', q: 'What is NOVIX Desktop?', k: 'what is novix desktop app about does do features co je to umi',
+    a: 'NOVIX Desktop gives Windows a calmer desktop: one bar for your apps and live tiles, moving wallpapers, a big clock, search, the voice assistant Tom, clipboard history, notifications and a lock screen. Your normal apps keep working.' },
+  { id: 'req', q: 'Will it run on my PC?', k: 'requirements windows 10 11 version 64 bit pc computer run support work mac linux pozadavky',
+    a: 'NOVIX Desktop runs on Windows 10 and Windows 11, 64-bit. It does not run on Mac or Linux.' },
+  { id: 'install', q: 'How do I install it?', k: 'install installer setup download how start instalace nainstalovat stahnout',
+    a: 'Download the installer from the website, run it, accept the license agreement and choose a folder. You can start NOVIX on the last page of the installer.' },
+  { id: 'smartscreen', q: 'Windows says the app is unsafe', k: 'smartscreen blue warning unsafe protected your pc unknown publisher virus defender blocked modre okno varovani',
+    a: 'That blue “Windows protected your PC” window appears because the installer is not code-signed yet. Click “More info”, then “Run anyway”. The installer comes only from the official NOVIX website.' },
+  { id: 'tom', q: '“Hey Tom” does not work', k: 'hey tom voice assistant microphone mic not working listen wake word speak talk hlas mikrofon nefunguje jarvis',
+    a: 'Open NOVIX Settings → Tom and turn on “Hey Tom” voice activation. The first time, NOVIX downloads a 40 MB voice model, so wait a moment. Tom understands English only. Say “Hey Tom” clearly, then your request. Also check that Windows allows apps to use the microphone (Windows Settings → Privacy & security → Microphone).' },
+  { id: 'tomprivacy', q: 'Does Tom record me?', k: 'record privacy data listen spy microphone saved sent cloud nahrava soukromi',
+    a: 'No. Speech is recognized offline on your computer. Until you say “Hey Tom”, only the wake phrase is listened for. Nothing is recorded, saved or sent anywhere.' },
+  { id: 'wallpaper', q: 'How do I change the wallpaper?', k: 'wallpaper background change set picture photo video own image tapeta pozadi zmenit',
+    a: 'Right-click the desktop and choose “Change wallpaper”. Pick a live wallpaper, or choose “Your photo or video…” to use your own file.' },
+  { id: 'daynight', q: 'Different wallpaper for day and night', k: 'day night morning evening time automatic schedule den noc rano vecer',
+    a: 'Open NOVIX Settings → Wallpapers and turn on “Day and night wallpaper”. Then pick a wallpaper and a start time for the day and for the night.' },
+  { id: 'customize', q: 'How do I move or resize widgets?', k: 'widget tile move resize drag customize screen layout position remove delete trash presunout zmensit',
+    a: 'Right-click the desktop and choose “Customize screen”. Drag tiles where you want them, scroll over a tile to resize it, and drop it on the trash to remove it. “Back” undoes the last change. Click the wallpaper when you are done.' },
+  { id: 'bar', q: 'Move the bar to the left side', k: 'bar dock left bottom side position move lista vlevo dole',
+    a: 'Click the gear icon in the bar to open Customize → Bar, then pick “Bottom” or “Left side”.' },
+  { id: 'taskbar', q: 'My Windows taskbar disappeared', k: 'taskbar missing gone hidden start menu icons desktop restore back normal hlavni panel zmizel',
+    a: 'NOVIX hides the Windows taskbar while it runs. To get it back, open NOVIX Settings → Windows Integration and click “Show taskbar and desktop icons now”, or turn NOVIX off. Signing out of Windows also restores it.' },
+  { id: 'off', q: 'How do I turn NOVIX off or uninstall it?', k: 'turn off quit close exit stop disable uninstall remove delete vypnout odinstalovat',
+    a: 'To turn it off: open the NOVIX folder in the Dock and choose “Turn off NOVIX”. Everything returns to normal. To uninstall: Windows Settings → Apps → Installed apps → NOVIX Desktop → Uninstall.' },
+  { id: 'startup', q: 'NOVIX starts slowly after I sign in', k: 'start startup boot slow sign in login fast faster begin spousteni pomale',
+    a: 'Open NOVIX Settings → Windows Integration and turn on “Start right after sign-in”. Windows normally waits a few seconds before it starts startup apps; this removes that wait.' },
+  { id: 'games', q: 'Does it slow down games?', k: 'game games gaming fps performance slow ram memory cpu fullscreen lag hry vykon pamet',
+    a: 'No. When a game or video goes fullscreen, NOVIX turns its wallpaper off and frees its memory. Wallpapers also pause whenever a window covers them.' },
+  { id: 'clipboard', q: 'Clipboard history', k: 'clipboard copy paste history alt shift v schranka kopirovat vlozit',
+    a: 'Press Alt + Shift + V to see the last 25 things you copied, then click one to paste it. The history stays only in memory, and passwords from password managers are never kept.' },
+  { id: 'notifications', q: 'Notifications', k: 'notifications bell discord whatsapp messages clear all oznameni zvonek',
+    a: 'Click the bell in the bar to see notifications from your apps, such as Discord or WhatsApp. Close one with its ×, or click “Clear all”.' },
+  { id: 'weather', q: 'Weather shows the wrong city', k: 'weather city wrong location temperature forecast pocasi mesto',
+    a: 'Open NOVIX Settings → Calendar & Weather and set your city there.' },
+  { id: 'license', q: 'License and sharing', k: 'license key copy share friend computers price buy pay payment refund licence koupit',
+    a: 'NOVIX Desktop is for your personal use on computers you own. Copying or sharing the app is not allowed (see the license agreement). For payment or license questions, create a ticket and we will help.' },
+  { id: 'contact', q: 'Talk to a person', k: 'contact human person email support help ticket problem bug kontakt clovek',
+    a: 'Create a support ticket next to this chat, or email ' + SUPPORT + '. We reply by email.' }
+]
+
+const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9+ ]/g, ' ')
+// Filler words would otherwise decide close calls ("can I share it with my friend" matched "Will it run on my PC").
+const STOP = new Set('it my me on the an to is do does how can with you your will of in for and or what why when this that be am are was mi je to se na jak co mam muj moje'.split(' '))
+const words = (s) => norm(s).split(/\s+/).filter((w) => w.length > 1 && !STOP.has(w))
+const index = FAQ.map((f) => ({ ...f, keys: new Set(words(f.k + ' ' + f.q)) }))
+
+/** Best answer for a question, or null. Prefix matches count too ("install" ↔ "installer"). */
+function answerFor(text) {
+  const qs = words(text)
+  let best = null, bestScore = 0
+  for (const f of index) {
+    let score = 0
+    for (const w of qs) {
+      if (f.keys.has(w)) score += 2
+      else if (w.length > 3 && [...f.keys].some((k) => k.length > 3 && (k.startsWith(w) || w.startsWith(k)))) score += 1
+    }
+    if (score > bestScore) { best = f; bestScore = score }
+  }
+  return bestScore >= 2 ? best : null
+}
+window.answerFor = answerFor
+
+const msgs = document.getElementById('msgs')
+function say(who, text, action) {
+  const m = document.createElement('div')
+  m.className = 'msg ' + who
+  if (who === 'bot') m.innerHTML = '<span class="who">NOVIX helper</span>'
+  m.append(document.createTextNode(text))
+  if (action) {
+    const b = document.createElement('button')
+    b.className = 'btn small act'
+    b.textContent = action.label
+    b.onclick = action.run
+    m.append(document.createElement('br'), b)
+  }
+  msgs.append(m)
+  msgs.scrollTop = msgs.scrollHeight
+}
+const toTicket = { label: 'Create a ticket', run: () => { document.getElementById('ticket').scrollIntoView({ behavior: 'smooth' }); document.getElementById('message').focus() } }
+
+function ask(text) {
+  text = text.trim()
+  if (!text) return
+  say('me', text)
+  const f = answerFor(text)
+  setTimeout(() => {
+    if (f) say('bot', f.a, f.id === 'contact' || f.id === 'license' ? toTicket : null)
+    else say('bot', "I don't know that one yet. Create a support ticket and a person will answer you by email.", toTicket)
+  }, 350)
+}
+
+document.getElementById('ask').onsubmit = (e) => {
+  e.preventDefault()
+  const q = document.getElementById('q')
+  ask(q.value)
+  q.value = ''
+}
+const chips = document.getElementById('chips')
+for (const id of ['tom', 'smartscreen', 'taskbar', 'wallpaper', 'off']) {
+  const f = FAQ.find((x) => x.id === id)
+  const c = document.createElement('button')
+  c.className = 'chip'
+  c.textContent = f.q
+  c.onclick = () => ask(f.q)
+  chips.append(c)
+}
+say('bot', 'Hi! Ask me anything about NOVIX Desktop, or pick a question below.')
+
+// ---------------------------------------------------------------- tickets: kept in this browser, sent with the user's own email app
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)) } catch { /* private window: works without saving */ } }
+}
+const fields = ['email', 'topic', 'message'].map((id) => document.getElementById(id))
+const draft = store.get('novix.ticketDraft', {})
+fields.forEach((el) => { if (draft[el.id]) el.value = draft[el.id] })
+const saved = document.getElementById('saved')
+fields.forEach((el) => el.addEventListener('input', () => {
+  store.set('novix.ticketDraft', Object.fromEntries(fields.map((f) => [f.id, f.value])))
+  saved.textContent = 'Draft saved'
+}))
+
+function mailto(t) {
+  const body = `Ticket: ${t.id}\nEmail: ${t.email}\nTopic: ${t.topic}\nBrowser: ${navigator.userAgent}\n\n${t.message}`
+  return `mailto:${SUPPORT}?subject=${encodeURIComponent(`[${t.id}] ${t.topic}`)}&body=${encodeURIComponent(body)}`
+}
+function newId() {
+  const d = new Date()
+  const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`
+  return `NVX-${ymd}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`
+}
+
+function renderTickets() {
+  const list = document.getElementById('list')
+  const tickets = store.get('novix.tickets', [])
+  list.innerHTML = ''
+  if (!tickets.length) { list.innerHTML = '<div class="empty">No tickets yet.</div>'; return }
+  for (const t of tickets) {
+    const el = document.createElement('div')
+    el.className = 'ticket'
+    el.innerHTML = '<div class="top"><span class="id"></span><span class="when"></span></div><p></p><div class="row"></div>'
+    el.querySelector('.id').textContent = t.id
+    el.querySelector('.when').textContent = new Date(t.time).toLocaleString()
+    el.querySelector('p').textContent = `${t.topic}: ${t.message}`
+    const send = document.createElement('a')
+    send.className = 'btn small ghost'
+    send.href = mailto(t)
+    send.textContent = 'Send again'
+    const del = document.createElement('button')
+    del.className = 'btn small ghost'
+    del.textContent = 'Remove'
+    del.onclick = () => { store.set('novix.tickets', store.get('novix.tickets', []).filter((x) => x.id !== t.id)); renderTickets() }
+    el.querySelector('.row').append(send, del)
+    list.append(el)
+  }
+}
+
+document.getElementById('tform').onsubmit = (e) => {
+  e.preventDefault()
+  const t = { id: newId(), time: Date.now(), email: fields[0].value.trim(), topic: fields[1].value, message: fields[2].value.trim() }
+  store.set('novix.tickets', [t, ...store.get('novix.tickets', [])])
+  store.set('novix.ticketDraft', {})
+  fields[2].value = ''
+  saved.textContent = `Ticket ${t.id} created`
+  renderTickets()
+  location.href = mailto(t)
+}
+renderTickets()
+</script>
+</body>
+</html>
