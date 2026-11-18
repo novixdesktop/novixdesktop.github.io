@@ -106,6 +106,14 @@
   .steps { counter-reset: s; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .steps .card::before { counter-increment: s; content: '0' counter(s); font: 700 15px Sora, sans-serif; color: var(--orange); letter-spacing: 2px; }
 
+  .countdown { margin: 8px auto 0; }
+  .cd-label { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--text-2); margin-bottom: 14px; }
+  .cd-row { display: flex; justify-content: center; gap: 12px; }
+  .cd-row div { min-width: 104px; padding: 16px 10px 12px; border-radius: 18px; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--line); backdrop-filter: blur(10px); }
+  .cd-row b { display: block; font: 800 54px/1 Sora, Inter, sans-serif; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .cd-row span { display: block; margin-top: 6px; font-size: 13px; color: var(--text-3); }
+  .cd-done { font: 800 40px Sora, Inter, sans-serif; letter-spacing: -0.03em; }
+  @media (max-width: 860px) { .cd-row div { min-width: 0; flex: 1; } .cd-row b { font-size: 36px; } }
   .plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 760px; }
   .plan { display: flex; flex-direction: column; gap: 6px; }
   .plan.best { border-color: rgba(255, 159, 10, 0.55); box-shadow: 0 30px 80px -40px rgba(255, 159, 10, 0.5); }
@@ -155,7 +163,7 @@
       <a href="#install">Install</a>
       <a href="support.html">Support</a>
     </div>
-    <a class="btn small" href="https://github.com/novixdesktop/novixdesktop.github.io/releases/latest/download/NOVIX-Desktop-Setup.exe">Download</a>
+    <a class="btn small" href="#launch">Coming soon</a>
   </div>
 </nav>
 
@@ -165,19 +173,62 @@
     <div class="eyebrow">NOVIX Desktop · for Windows</div>
     <h1>Your Windows,<br />reimagined<span class="dot">.</span></h1>
     <p class="lead">One bar for your apps and live tiles, living wallpapers, a big beautiful clock and a voice assistant. Everything Windows does, just calmer.</p>
-    <div class="cta">
-      <a class="btn" href="https://github.com/novixdesktop/novixdesktop.github.io/releases/latest/download/NOVIX-Desktop-Setup.exe">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3zM11.5 4.3 21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.5zM11.5 12.5H21V21l-9.5-1.3z" /></svg>
-        Download for Windows
-      </a>
-      <a class="btn ghost" href="#features">See what it does</a>
+    <div class="countdown" id="launch" data-launch="2026-11-25T22:00:00+01:00">
+      <div class="cd-label">Launching in</div>
+      <div class="cd-row" aria-live="off">
+        <div><b data-u="d">7</b><span>days</span></div>
+        <div><b data-u="h">00</b><span>hours</span></div>
+        <div><b data-u="m">00</b><span>minutes</span></div>
+        <div><b data-u="s">00</b><span>seconds</span></div>
+      </div>
     </div>
-    <div class="note">Free · Windows 10 and 11 · 64-bit</div>
-    <div class="film">
+    <div class="note">Windows 10 and 11 · 64-bit</div>
+  </div>
+</header>
+
+<section id="pricing">
+  <div class="wrap">
+    <h2 class="reveal">Simple pricing.</h2>
+    <p class="sub reveal">Pick your plan. Both open on launch day.</p>
+    <div class="plans">
+      <div class="card plan reveal" style="--c:#5e8bff">
+        <h3>1 month</h3>
+        <div class="price">$3 <small>one-time</small></div>
+        <ul>
+          <li>Every NOVIX feature for 30 days</li>
+          <li>No subscription, does not renew by itself</li>
+        </ul>
+        <a class="btn ghost" aria-disabled="true">Coming soon</a>
+      </div>
+      <div class="card plan best reveal" style="--c:#ff9f0a">
+        <span class="tag">Best value</span>
+        <h3>Lifetime</h3>
+        <div class="price">$5 <small>one-time</small></div>
+        <ul>
+          <li>Every NOVIX feature, forever</li>
+          <li>All future updates included</li>
+        </ul>
+        <a class="btn" aria-disabled="true">Coming soon</a>
+      </div>
+    </div>
+    <details class="info reveal">
+      <summary>Info: all sales are final</summary>
+      <div>
+        <p>NOVIX Desktop is a digital download that you get right after payment. When you buy it, you agree that it is delivered immediately and that you therefore lose the 14-day right of withdrawal. Because of this, we do not give refunds if you simply change your mind.</p>
+        <p>If NOVIX Desktop does not work as described, write to <a href="mailto:novixdesktop@gmail.com">novixdesktop@gmail.com</a> or use <a href="support.html">Support</a>. Your legal rights for a faulty product are not affected.</p>
+        <p>Prices include VAT where it applies.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="filmsec">
+  <div class="wrap">
+    <div class="film" style="margin-top: 0">
       <video src="img/intro.mp4" poster="img/home_orange.png" controls playsinline preload="metadata"></video>
     </div>
   </div>
-</header>
+</section>
 
 <section id="features">
   <div class="wrap">
@@ -222,48 +273,13 @@
   </div>
 </section>
 
-<section id="pricing">
-  <div class="wrap">
-    <h2 class="reveal">Simple pricing.</h2>
-    <p class="sub reveal">NOVIX Desktop is free while it is in early access. Paid plans start soon.</p>
-    <div class="plans">
-      <div class="card plan reveal" style="--c:#5e8bff">
-        <h3>1 month</h3>
-        <div class="price">$3 <small>one-time</small></div>
-        <ul>
-          <li>Every NOVIX feature for 30 days</li>
-          <li>No subscription, does not renew by itself</li>
-        </ul>
-        <a class="btn ghost" aria-disabled="true">Coming soon</a>
-      </div>
-      <div class="card plan best reveal" style="--c:#ff9f0a">
-        <span class="tag">Best value</span>
-        <h3>Lifetime</h3>
-        <div class="price">$5 <small>one-time</small></div>
-        <ul>
-          <li>Every NOVIX feature, forever</li>
-          <li>All future updates included</li>
-        </ul>
-        <a class="btn" aria-disabled="true">Coming soon</a>
-      </div>
-    </div>
-    <details class="info reveal">
-      <summary>Info: all sales are final</summary>
-      <div>
-        <p>NOVIX Desktop is a digital download that you get right after payment. When you buy it, you agree that it is delivered immediately and that you therefore lose the 14-day right of withdrawal. Because of this, we do not give refunds if you simply change your mind.</p>
-        <p>If NOVIX Desktop does not work as described, write to <a href="mailto:novixdesktop@gmail.com">novixdesktop@gmail.com</a> or use <a href="support.html">Support</a>. Your legal rights for a faulty product are not affected.</p>
-        <p>Prices include VAT where it applies.</p>
-      </div>
-    </details>
-  </div>
-</section>
 
 <section id="install">
   <div class="wrap">
     <h2 class="reveal">Ready in a minute.</h2>
     <p class="sub reveal">No account, no setup wizard full of questions.</p>
     <div class="steps">
-      <div class="card reveal" style="--c:#ff5e3a"><h3>Download</h3><p>Get the installer for Windows 10 or 11.</p></div>
+      <div class="card reveal" style="--c:#ff5e3a"><h3>Download</h3><p>Get the installer on launch day, for Windows 10 or 11.</p></div>
       <div class="card reveal" style="--c:#b45bff"><h3>Install</h3><p>Run it. If Windows SmartScreen asks, choose “More info” and “Run anyway”.</p></div>
       <div class="card reveal" style="--c:#2bd2ff"><h3>Enjoy</h3><p>NOVIX starts with Windows. Turn it off any time and your normal desktop is back.</p></div>
     </div>
@@ -275,8 +291,8 @@
   <div class="wrap">
     <img src="img/logo.png" alt="NOVIX logo" class="reveal" />
     <h2 class="reveal">Make Windows yours.</h2>
-    <p class="sub reveal" style="margin: 0 auto 32px">Free download. Takes less than a minute.</p>
-    <a class="btn reveal" href="https://github.com/novixdesktop/novixdesktop.github.io/releases/latest/download/NOVIX-Desktop-Setup.exe">Download NOVIX Desktop</a>
+    <p class="sub reveal" style="margin: 0 auto 32px">Launching soon. Installs in less than a minute.</p>
+    <a class="btn reveal" href="#launch">See the countdown</a>
   </div>
 </div>
 
@@ -288,6 +304,22 @@
 </footer>
 
 <script>
+  // Launch countdown to one fixed moment, so every visitor sees the same time left.
+  const cd = document.getElementById('launch')
+  const launchAt = new Date(cd.dataset.launch).getTime()
+  const units = Object.fromEntries([...cd.querySelectorAll('b')].map((b) => [b.dataset.u, b]))
+  function tick() {
+    const left = Math.max(0, launchAt - Date.now())
+    if (!left) { cd.innerHTML = '<div class="cd-done">NOVIX Desktop is here.</div>'; return }
+    const sec = Math.floor(left / 1000)
+    units.d.textContent = Math.floor(sec / 86400)
+    units.h.textContent = String(Math.floor(sec / 3600) % 24).padStart(2, '0')
+    units.m.textContent = String(Math.floor(sec / 60) % 60).padStart(2, '0')
+    units.s.textContent = String(sec % 60).padStart(2, '0')
+    setTimeout(tick, 1000 - (Date.now() % 1000))
+  }
+  tick()
+
   // Fade sections in as they scroll into view.
   const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))), { threshold: 0.12 })
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
