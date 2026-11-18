@@ -24,6 +24,8 @@
     --radius: 22px;
   }
   * { box-sizing: border-box; }
+  /* The background glow is wider than the page: clip it so phones cannot scroll sideways. */
+  html, body { overflow-x: clip; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
@@ -104,6 +106,22 @@
   .steps { counter-reset: s; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .steps .card::before { counter-increment: s; content: '0' counter(s); font: 700 15px Sora, sans-serif; color: var(--orange); letter-spacing: 2px; }
 
+  .plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 760px; }
+  .plan { display: flex; flex-direction: column; gap: 6px; }
+  .plan.best { border-color: rgba(255, 159, 10, 0.55); box-shadow: 0 30px 80px -40px rgba(255, 159, 10, 0.5); }
+  .plan .tag { align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a1000; background: var(--orange); padding: 3px 9px; border-radius: 999px; }
+  .plan .price { font: 800 46px/1 Sora, Inter, sans-serif; letter-spacing: -0.03em; margin: 14px 0 2px; }
+  .plan .price small { font: 500 15px Inter, sans-serif; color: var(--text-3); letter-spacing: 0; }
+  .plan ul { margin: 12px 0 20px; padding-left: 18px; color: var(--text-2); font-size: 15px; }
+  .plan .btn { margin-top: auto; }
+  .btn[aria-disabled="true"] { opacity: 0.45; pointer-events: none; }
+  .info { max-width: 760px; margin-top: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
+  .info summary { cursor: pointer; padding: 14px 18px; font-weight: 600; font-size: 15px; list-style: none; display: flex; align-items: center; gap: 10px; }
+  .info summary::-webkit-details-marker { display: none; }
+  .info summary::before { content: 'i'; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font: 700 12px Sora, sans-serif; background: rgba(255, 255, 255, 0.12); }
+  .info div { padding: 0 18px 16px; color: var(--text-2); font-size: 14.5px; }
+  .info p { margin: 0 0 8px; }
+
   .final { text-align: center; padding: 120px 0 110px; position: relative; }
   .final img { width: 150px; margin: 0 auto 28px; border-radius: 50%; }
 
@@ -117,7 +135,7 @@
   @media (max-width: 860px) {
     nav .links { display: none; }
     nav .btn { margin-left: auto; }
-    .grid, .steps { grid-template-columns: 1fr; }
+    .grid, .steps, .plans { grid-template-columns: 1fr; }
     .shots { grid-template-columns: 1fr; }
     .shots .tall { grid-row: auto; }
     .walls { grid-template-columns: 1fr 1fr; }
@@ -133,6 +151,7 @@
     <div class="links">
       <a href="#features">Features</a>
       <a href="#wallpapers">Wallpapers</a>
+      <a href="#pricing">Pricing</a>
       <a href="#install">Install</a>
       <a href="support.html">Support</a>
     </div>
@@ -200,6 +219,42 @@
       <a class="shot reveal" href="img/home_orange.png"><img src="img/home_orange.png" alt="Orange wallpaper" loading="lazy" /><span>Orange</span></a>
       <a class="shot reveal" href="img/home_storm.png"><img src="img/home_storm.png" alt="Storm wallpaper" loading="lazy" /><span>Storm</span></a>
     </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <h2 class="reveal">Simple pricing.</h2>
+    <p class="sub reveal">NOVIX Desktop is free while it is in early access. Paid plans start soon.</p>
+    <div class="plans">
+      <div class="card plan reveal" style="--c:#5e8bff">
+        <h3>1 month</h3>
+        <div class="price">$3 <small>one-time</small></div>
+        <ul>
+          <li>Every NOVIX feature for 30 days</li>
+          <li>No subscription, does not renew by itself</li>
+        </ul>
+        <a class="btn ghost" aria-disabled="true">Coming soon</a>
+      </div>
+      <div class="card plan best reveal" style="--c:#ff9f0a">
+        <span class="tag">Best value</span>
+        <h3>Lifetime</h3>
+        <div class="price">$5 <small>one-time</small></div>
+        <ul>
+          <li>Every NOVIX feature, forever</li>
+          <li>All future updates included</li>
+        </ul>
+        <a class="btn" aria-disabled="true">Coming soon</a>
+      </div>
+    </div>
+    <details class="info reveal">
+      <summary>Info: all sales are final</summary>
+      <div>
+        <p>NOVIX Desktop is a digital download that you get right after payment. When you buy it, you agree that it is delivered immediately and that you therefore lose the 14-day right of withdrawal. Because of this, we do not give refunds if you simply change your mind.</p>
+        <p>If NOVIX Desktop does not work as described, write to <a href="mailto:novixdesktop@gmail.com">novixdesktop@gmail.com</a> or use <a href="support.html">Support</a>. Your legal rights for a faulty product are not affected.</p>
+        <p>Prices include VAT where it applies.</p>
+      </div>
+    </details>
   </div>
 </section>
 
